@@ -20,7 +20,7 @@ day-by-day study schedule.
   structure validation via `zod` (see `lib/validation/kitSchema.js`) covers the same ground
   TypeScript would for the one place it matters most: the kit shape.
 - **Scraping:** `fetch` + `cheerio` for parsing/link extraction, `robots-parser` for robots.txt.
-- **LLM:** **Groq**, model `llama-3.3-70b-versatile` (configurable via `GROQ_MODEL`). Chosen for a
+- **LLM:** **Groq**, model `openai/gpt-oss-120b` (configurable via `GROQ_MODEL`). Chosen for a
   genuinely free tier with generous rate limits and fast inference (important for the batch
   command's 15-minute ceiling) and native JSON-mode output.
 - **Styling:** Tailwind CSS.
@@ -74,7 +74,7 @@ See `.env.example` for the authoritative list; summary:
 | `MONGODB_URI` | Persistence for users and kits |
 | `JWT_SECRET` | Signs the session cookie |
 | `GROQ_API_KEY` | LLM calls |
-| `GROQ_MODEL` | Defaults to `llama-3.3-70b-versatile` |
+| `GROQ_MODEL` | Defaults to `openai/gpt-oss-120b` |
 | `NODE_ENV` | `production` enforces the SSRF guard (rejects private/loopback URLs); non-production allows `localhost` so the batch command can target a local fixture site, per Section 9 |
 | `CRAWL_MAX_PAGES`, `FETCH_TIMEOUT_MS` | Tuning knobs, sensible defaults if unset |
 
