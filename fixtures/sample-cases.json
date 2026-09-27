@@ -1,0 +1,20 @@
+[
+  {
+    "id": "case-01",
+    "jd": "Senior Backend Engineer\n\nAcme Robotics is looking for a Senior Backend Engineer to join our fleet platform team.\n\nRequirements:\n- 5+ years of experience with Node.js in production\n- Required: strong understanding of REST API design\n- You must have experience with PostgreSQL or another relational database\n- Experience mentoring junior engineers\n- Nice to have: exposure to Kafka or another message queue\n- Bonus points for Python experience\n\nResponsibilities:\n- Design and build APIs for our fleet-management dashboard\n- Review code and mentor junior engineers on the team\n- Participate in on-call rotation",
+    "company_url": "http://localhost:8099/index.html",
+    "days": 5
+  },
+  {
+    "id": "case-02",
+    "jd": "Frontend Engineer. React. Remote.",
+    "company_url": "http://localhost:8099/index.html",
+    "days": 3
+  },
+  {
+    "id": "case-03",
+    "jd": "Platform Engineer\n\nWe need someone with 3+ years of Kubernetes experience and strong Go skills. Must be comfortable with on-call. Experience with Terraform is a plus.",
+    "company_url": "http://localhost:9999/does-not-exist",
+    "days": 7
+  }
+]
