@@ -29,6 +29,13 @@ async function regenerateKitSection(id, section) {
   return data.kit;
 }
 
+// The kit API routes respond with the whole kit document ({ _id, status, kit, ... }), so take
+// the document as-is when that's what came back, and only treat it as bare kit content otherwise.
+function mergeServerKit(doc, next) {
+  if (next && typeof next === "object" && "kit" in next && "status" in next) return next;
+  return { ...doc, kit: next };
+}
+
 export default function KitView({ initialDoc }) {
   const [doc, setDoc] = useState(initialDoc);
   const [busySection, setBusySection] = useState(null);
@@ -47,14 +54,14 @@ export default function KitView({ initialDoc }) {
   }, [doc.status, id]);
 
   const kit = doc.kit;
-  const requirementsById = useMemo(() => new Map((kit?.role.requirements || []).map((r) => [r.id, r])), [kit]);
+  const requirementsById = useMemo(() => new Map((kit?.role?.requirements || []).map((r) => [r.id, r])), [kit]);
 
   async function runEdit(edit, { optimistic } = {}) {
     setError(null);
     if (optimistic) setDoc((d) => ({ ...d, kit: optimistic(d.kit) }));
     try {
-      const nextKit = await patchKit(id, edit);
-      setDoc((d) => ({ ...d, kit: nextKit }));
+      const next = await patchKit(id, edit);
+      setDoc((d) => mergeServerKit(d, next));
     } catch (err) {
       setError(err.message);
     }
@@ -64,8 +71,8 @@ export default function KitView({ initialDoc }) {
     setBusySection(section);
     setError(null);
     try {
-      const nextKit = await regenerateKitSection(id, section);
-      setDoc((d) => ({ ...d, kit: nextKit }));
+      const next = await regenerateKitSection(id, section);
+      setDoc((d) => mergeServerKit(d, next));
     } catch (err) {
       setError(err.message);
     } finally {
